@@ -26,15 +26,15 @@ In this project, you will create a version of Zork born from your own beautiful 
 Your code will need to represent several distinct states, including:
 
 * The current room
-  * Room description (immutable)
+  * Room description (immutable, cannot be modified)
   * Room connection (immutable)
-  * Room inventory (mutable)
+  * Room inventory (mutable, can be modified)
 * Other rooms
   * Room description (immutable)
   * Room connection (immutable)
   * Room inventory (mutable)
 * The player
-  * Player inventory (mutable)
+  * Player inventory (mutable, can be changed, array?)
   * Player status (mutable)
 
 Think about appropriate data structures for each of these. Note that you do not need to write code for these until you are actually implementing a story that requires them, but it is good to make a rough plan early on, to anticipate pitfalls and estimate how difficult upcoming stories will be.
