@@ -121,7 +121,7 @@ class Item {
       if(this.canDrop === true) {
         let item = this;
         player.inventory.pop();
-        roomLookup[currentRoom]['inventory'].push(item);
+        currentRoom.inventory.push(item);
         console.log(`You dropped this ${this.name}`);
       } else {
         console.log(`Cannot drop this ${this.name}. It is not part of your inventory`);
@@ -218,36 +218,6 @@ let itemLookup = {
     "take portal": portal
   }
 
-  let dropLookup = {
-    "drop key": key,
-    "put down up key": key, 
-    "let go of key": key,
-
-    "drop sign": sign,
-    "put down sign": sign,
-    "let go of sign": sign,
-
-    "drop crowbar": crowbar,
-    "put down crowbar": crowbar,
-    "let go of crowbar": crowbar,
-
-    "drop rock": rock,
-    "put down rock": rock,
-    "let go of rock": rock,
-
-    "drop stapler": stapler,
-    "put down stapler": stapler, 
-    "let go of stapler": stapler,
-
-    "drop desk": desk,
-    "put down desk": desk, 
-    "let go of desk": desk,
-
-    "drop portal": portal,
-    "put down portal": portal, 
-    "let go of portal": portal
-  }
-
 
 
 
@@ -339,20 +309,6 @@ async function start() {
             }
           }
 
-          // inventory drop
-          if (
-            answer.includes(`drop`) ||
-            answer.includes('put down') ||
-            answer.includes('let go of') 
-          ) {
-          if (player.inventory.includes(
-          dropLookup[answer])) {
-      
-              dropLookup[answer].drop();
-              return playGame();
-            }
-          }
-
 
 
 
@@ -384,7 +340,7 @@ async function start() {
     }
   }
 
-    else if (currentRoom === 'basement' ) {
+    if (currentRoom === 'basement' ) {
       if (answer.includes('go upstairs') ||
       answer.includes('leave room') ||
       answer.includes('exit room')) {
@@ -394,7 +350,7 @@ async function start() {
   }
 
       // Player can enter park from sidewalk rather than try to enter office building
-  else if (currentRoom === 'sidewalk') {
+  if (currentRoom === 'sidewalk') {
     if (answer.includes('walk left') ||
     answer.includes('walk west') ||
     answer.includes('go west') ||
@@ -406,7 +362,7 @@ async function start() {
   }
 
     // Move from park to apartment
-  else if (currentRoom === 'park') {
+  if (currentRoom === 'park') {
     if (answer.includes('go west') ||
     answer.includes('go left') ||  
     answer.includes('walk west') || 
@@ -430,10 +386,10 @@ let aptWalk = "From the park, you continue west until you reach an apartment bui
         answer.includes('go to house')) {
     let houseWalk = "From the park, you continue north until you reach the house. Would you like to go in? ";
           answer = await ask(houseWalk);
-          if (player.inventory.includes("key")) {
-            house.locked = false;
+          if (player.inventory.includes('key')) {
+            house.locked === false;
           }
-        if (house.locked = false){
+        if (house.locked === false) {
           if (answer.includes('yes')) {
             console.log('You use your key to unlock the door to the house.')
             changeRoom('house');
@@ -445,7 +401,7 @@ let aptWalk = "From the park, you continue west until you reach an apartment bui
       }
     }
 
-    else if (currentRoom === 'apartment building') {
+    if (currentRoom === 'apartment building') {
       if (answer.includes('go outside') ||
       answer.includes('leave room') ||
       answer.includes('exit room')) {
@@ -454,7 +410,7 @@ let aptWalk = "From the park, you continue west until you reach an apartment bui
     }
     }
 
-      else if (currentRoom === 'house') {
+      if (currentRoom === 'house') {
       if (answer.includes('enter portal') ||
         answer.includes('go through portal') ||
         answer.includes('go into portal')) {
@@ -464,7 +420,7 @@ let aptWalk = "From the park, you continue west until you reach an apartment bui
       }
       
 
-      if (answer.includes('look around') ||
+      else if (answer.includes('look around') ||
       answer.includes('explore')) {
       console.log(roomLookup[currentRoom]['description']);
       playGame();
@@ -474,7 +430,12 @@ let aptWalk = "From the park, you continue west until you reach an apartment bui
       console.log("That is an invalid command!");
       playGame();
     }
-  }
+
+      // while (answer !== 'exit') {
+      //   answer = await ask('>_ ')
+      //   playGame();
+      // }
+    }
 
 
 
@@ -482,3 +443,7 @@ let aptWalk = "From the park, you continue west until you reach an apartment bui
 
 
   // process.exit();
+
+
+
+
